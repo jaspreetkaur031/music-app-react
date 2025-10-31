@@ -1,13 +1,23 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-// import './home.css'; // Import page-specific CSS
-
-// We'll need to re-add the vanilla-tilt.js logic using a hook
-// For now, let's just get the page to render.
+// import './home.css'; // This is correct, we are loading it dynamically
 
 function HomePage() {
 
-  // This useEffect will run after the component mounts
+  // --- HOOK 1: Load and unload the CSS file ---
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.href = "/home.css"; // Path from the public folder
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+
+    // Cleanup function to remove the stylesheet when component unmounts
+    return () => {
+      document.head.removeChild(link);
+    };
+  }, []); // Empty array means this runs only on mount and unmount
+
+  // --- HOOK 2: 3D Rotation Logic ---
   useEffect(() => {
     // 3D Rotation Logic from your Home.html
     const rotator = document.getElementById('circle-rotator');
@@ -23,13 +33,13 @@ function HomePage() {
 
     cards.forEach((card, index) => {
       const angle = angleIncrement * index;
-      card.style.transform = `rotateY(${angle}deg) translateZ(${zDistance}px)`;
+      
+      // We must add 'translate(-50%, -50%)' here to keep the images centered.
+      card.style.transform = `translate(-50%, -50%) rotateY(${angle}deg) translateZ(${zDistance}px)`;
+      
       card.style.animationDelay = `${index * 0.5}s`;
     });
     
-    // We can't import vanilla-tilt.js directly, but we can load it
-    // This is an advanced topic, so we will skip the tilt effect for now.
-
   }, []); // The empty array [] means this runs once on mount
 
   return (
@@ -42,10 +52,15 @@ function HomePage() {
         <h1 className="nft-hero-title">UNIQUE COLLECTION OF MUSIC</h1>
         <p className="nft-hero-subtitle">The largest collection of nmusic among all providers</p>
         
-        <div id="circle-container" className="nft-hero-cards">
+        {/*
+          --- GAP FIX 1 ---
+          Increased 'marginTop' to '8rem' (or '128px') to add more space
+          between the title and the rotating images.
+        */}
+        <div id="circle-container" className="nft-hero-cards" style={{ marginTop: '8rem', marginBottom:'10rem' }} >
           <div id="circle-rotator">
             
-            <div className="nft-card-3d glass-card glowing-border">
+            <div className="nft-card-3d glass-card glowing-border" >
               <img src="/Images/musicpur4.jpg" 
                 alt="NFT Art 1"
                 onError={(e) => e.target.src='https://placehold.co/400x500/0ea5e9/white?text=Error'} />
@@ -78,7 +93,12 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Use <Link> instead of <a> for internal links */}
+      {/*
+        --- GAP FIX 2 ---
+        REMOVED the 'style={{marginTop: '20rem'}}' from this Link.
+        This lets the 'home.css' file (which has 'margin-top: -4rem') 
+        pull the card up and overlap the images, closing the large gap.
+      */}
       <Link to="/" className="full-screen-card">
         <div className="overlay"></div>
         <div className="card-content">

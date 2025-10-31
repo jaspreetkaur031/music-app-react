@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react'; // 1. Import useEffect
 import { MusicContext } from '../context/MusicContext';
 import SongListItem from '../components/SongListItem';
 
@@ -9,6 +9,32 @@ function DiscoverPage({ toggleSidebar }) {
   const [activeTab, setActiveTab] = useState(1);
   const { songs } = useContext(MusicContext);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+
+  // --- 2. ADD THIS UseEffect HOOK ---
+  useEffect(() => {
+    // Find the main content container
+    const heroContainer = document.querySelector('.hero_container');
+    
+    if (heroContainer) {
+      // Add the background styles when this page loads
+      heroContainer.style.backgroundImage = 'url(/Images/hero_bg.png)';
+      heroContainer.style.backgroundRepeat = 'no-repeat';
+      heroContainer.style.backgroundPosition = 'center right';
+      heroContainer.style.backgroundSize = '58.5%';
+    }
+
+    // Cleanup function: This runs when you navigate away from this page
+    return () => {
+      if (heroContainer) {
+        // Remove the background styles
+        heroContainer.style.backgroundImage = '';
+        heroContainer.style.backgroundRepeat = '';
+        heroContainer.style.backgroundPosition = '';
+        heroContainer.style.backgroundSize = '';
+      }
+    };
+  }, []); // The empty array [] means this runs only on mount and unmount
+  // ---------------------------------
 
   // --- NEW: Create different song lists for each tab ---
   
@@ -158,4 +184,3 @@ function DiscoverPage({ toggleSidebar }) {
 }
 
 export default DiscoverPage;
-

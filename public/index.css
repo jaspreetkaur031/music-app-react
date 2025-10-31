@@ -13,7 +13,9 @@
 body{
     background-color: #0b1828;
     background-image: linear-gradient(134deg, rgb(12 26 42) 0%, rgb(10 23 38) 100%);
-    overflow-y: hidden;
+    
+    /* --- THIS IS THE SCROLLING FIX --- */
+    /* This MUST be hidden to force scrolling inside .hero_container */
     overflow: hidden;
 }
 
@@ -242,10 +244,12 @@ aside{
     padding: 1% 3%;
     display: flex;
     flex-direction: column;
-    background-image: url(/Images/hero_bg.png);
-    background-repeat: no-repeat;
-    background-position: center right;
-    background-size: 58.5%;
+    /* This is the container that scrolls.
+      The background image is now applied *dynamically* by DiscoverPage.js
+    */
+    height: 100vh;
+    overflow-y: auto;
+    padding-bottom: 120px; 
 }
 .hero_top{
     width: 100%;
@@ -450,22 +454,13 @@ aside{
 }
 .songs_wrapper{
     width: 100%;
-    height: 600px;
+    /* height: 600px; <-- REMOVED this fixed height */
     overflow: scroll;
     display: flex;
     flex-direction: column;
     gap: 20px;
     margin-top: 20px;
     padding-right: 20px;
-
-    /* width: 100%;
-  height: 600px;
-  overflow-y: auto; 
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-top: 20px;
-  padding-right: 10px; */
 }
 .songs_wrapper2,
 .songs_wrapper3{
@@ -589,19 +584,6 @@ aside{
         gap: 7px;
         z-index: 5;
         transition: var(--transition);
-     /* display: none;
-  position: absolute;
-  top: 100%;
-  left: -145px;
-  width: 180px;
-  border-radius: 10px;
-  background-color: rgb(23 37 51);
-  box-shadow: 0 0 60px 0px rgba(0, 0, 0, 0.2);
-  padding: 10px 15px;
-  flex-direction: column;
-  gap: 7px;
-  z-index: 5;
-  transition: var(--transition); */
 }
 .song_option_dropdown:after{
     content: '';
@@ -663,7 +645,6 @@ aside{
     opacity: 1;
     top: 150%;
     transform: scale(1);
-    /* display: flex; */
 }
 
 
@@ -852,58 +833,32 @@ aside{
     position: relative;
 }
 
-/* .music_play_line:after{
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 4px;
-    transform: translate(-50%, -50%);
-    width: 10px;
-    height: 10px;
-    border-radius: 100%;
-    background-color: var(--theme-color);
-} */
-
-/* .music_play_line:after{
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: var(--progress-percent, 4px); 
-    transform: translate(-50%, -50%);
-    width: 10px;
-    height: 10px;
-    border-radius: 100%;
-    background-color: var(--theme-color);
-} */
-
-/* This creates the red "played" bar */
 .music_play_line:before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
-  background-color: var(--theme-color); /* Red fill color */
-  border-radius: 10px; /* Match the main bar's border-radius */
-  width: var(--progress-percent, 0%); /* Controlled by JS */
-  z-index: 1; /* Make sure it's above the white bar */
-  transition: width 0.1s linear; /* Smooth transition when seeking */
+  background-color: var(--theme-color);
+  border-radius: 10px; 
+  width: var(--progress-percent, 0%);
+  z-index: 1; 
+  transition: width 0.1s linear; 
 }
 
-/* This styles the larger dot */
 .music_play_line:after {
   content: '';
   position: absolute;
   top: 50%;
-  left: var(--progress-percent, 4px); /* Controlled by JS */
+  left: var(--progress-percent, 4px); 
   transform: translate(-50%, -50%);
-  width: 15px;  /* Increased size */
-  height: 15px; /* Increased size */
-  z-index: 2;   /* Ensures dot is above the red fill */
+  width: 15px; 
+  height: 15px; 
+  z-index: 2;   
   border-radius: 100%;
-  background-color: var(--theme-color); /* Red dot color */
-  transition: left 0.1s linear; /* Smooth transition when seeking */
-  cursor: pointer; /* Add a pointer cursor to indicate it's draggable */
+  background-color: var(--theme-color); 
+  transition: left 0.1s linear; 
+  cursor: pointer; 
 }
 
 .music_timeline{
@@ -1371,7 +1326,7 @@ aside{
         width: 55%;
     }
     .hero_container{
-        background-image: none;
+        background-image: none !important;
     }
     aside{
         width: 20%;
@@ -1523,4 +1478,3 @@ aside{
         height: 100%;
     }
 }
-

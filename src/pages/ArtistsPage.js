@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react'; // 1. Import useEffect
 import { Link } from 'react-router-dom';
-// import './home.css'; // Re-using home.css as it seems to fit
+// import './home.css'; // This comment is correct, we are re-using home.css
 
 function ArtistsPage() {
+
+  // 2. Add this useEffect hook to load the stylesheet
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.href = "/home.css"; // This page also uses home.css
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+
+    // 3. Cleanup function to remove the stylesheet on unmount
+    return () => {
+      document.head.removeChild(link);
+    };
+  }, []); // The empty array ensures this runs only once
+
   return (
     <main className="container main-content">
       <section className="section animate-fadeInUp" style={{ paddingTop: '2rem' }}>

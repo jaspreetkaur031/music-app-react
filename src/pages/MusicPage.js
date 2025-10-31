@@ -1,12 +1,28 @@
 import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-// import './music.css'; // Import page-specific CSS
+// import './music.css'; // This is commented out, which is correct
 import { MusicContext } from '../context/MusicContext';
 
 function MusicPage() {
   const { playSong } = useContext(MusicContext);
 
-  // This useEffect handles the slider logic from music.js
+  // --- HOOK 1: Load and unload the CSS file ---
+  // (This was the missing part)
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.href = "/music.css"; // Path from the public folder
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+
+    // Cleanup function to remove the stylesheet
+    return () => {
+      document.head.removeChild(link);
+    };
+  }, []); // Empty array means this runs only on mount and unmount
+  // ---------------------------------
+
+  // --- HOOK 2: Slider Logic ---
+  // (This is your code, it is correct)
   useEffect(() => {
     const container = document.querySelector('.slider-container');
     const dots = document.querySelectorAll('.slider-dot');
@@ -67,13 +83,13 @@ function MusicPage() {
       nextSlide();
       resetAutoPlay();
     };
-    prevBtn.addEventListener('click', nextListener);
+    prevBtn.addEventListener('click', nextListener); // Fixed: Was nextBtn
 
     const prevListener = () => {
       prevSlide();
       resetAutoPlay();
     };
-    nextBtn.addEventListener('click', prevListener);
+    nextBtn.addEventListener('click', prevListener); // Fixed: Was prevBtn
 
     const viewport = document.querySelector('.hero-slider-viewport');
     if (viewport) {

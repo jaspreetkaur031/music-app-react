@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 // import './purchase.css'; // Import page-specific CSS
 
+
 function PurchasedPage() {
   return (
     <main className="container main-content">
