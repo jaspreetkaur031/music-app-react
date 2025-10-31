@@ -1,0 +1,806 @@
+/*
+=====
+This CSS file is from your original 'music.css'.
+I have fixed all the 'url("Images/...")' paths to 'url("/Images/...")'
+so they work with your React project's 'public' folder.
+=====
+*/
+
+/* --- Google Font --- */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+/* --- Root Variables --- */
+:root {
+  --primary-color: #ffffff;
+  --text-color: #e0e0e0;
+  --text-dark: #a0a0a0;
+  --bg-color: #0c0c0c;
+  --card-bg: rgba(26, 26, 26, 0.5);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: rgba(0, 0, 0, 0.25);
+  --glow-color: rgba(255, 255, 255, 0.05);
+
+  --font-sans: "Inter", sans-serif;
+
+  --accent-blue: #0ea5e9;
+  --accent-pink: #db2777;
+  --accent-purple: #c026d3;
+  --accent-red: #e11d48;
+  --accent-green: #16a34a;
+}
+
+/* --- Base Styles --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* --- Aurora Background Effect --- */
+.aurora-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.aurora-bg::before {
+  content: "";
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  z-index: -2;
+  background-image: conic-gradient(
+    from 90deg at 50% 50%,
+    rgba(14, 165, 233, 0.15) 0%,
+    rgba(219, 39, 119, 0.15) 19.79%,
+    rgba(192, 38, 211, 0.15) 39.06%,
+    rgba(225, 29, 72, 0.15) 59.9%,
+    rgba(22, 163, 74, 0.15) 80.21%,
+    rgba(14, 165, 233, 0.15) 100%
+  );
+  animation: rotateBackground 20s linear infinite;
+}
+
+.aurora-bg::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: var(--bg-color);
+  backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(100px);
+}
+
+@keyframes rotateBackground {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* --- Utility Classes --- */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--accent-blue);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* --- Glassmorphism Card Style --- */
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px 0 var(--glass-shadow);
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* --- Glowing Border Effect --- */
+.glowing-border {
+  position: relative;
+}
+.glowing-border::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: conic-gradient(
+    from var(--angle),
+    transparent 20%,
+    var(--accent-blue),
+    var(--accent-pink),
+    transparent 80%
+  );
+  z-index: -1;
+  border-radius: 18px; /* Slightly larger for card */
+  filter: blur(15px);
+  opacity: 0.6;
+  animation: glow-rotate 6s linear infinite;
+  --angle: 0deg;
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes glow-rotate {
+  to {
+    --angle: 360deg;
+  }
+}
+
+/* --- Header / Navigation --- */
+.main-header {
+  padding: 2rem 0;
+}
+
+.main-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  gap: 0.5rem;
+}
+
+.logo svg {
+  width: 28px;
+  height: 28px;
+  color: var(--accent-blue);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  font-weight: 500;
+  color: var(--text-dark);
+  position: relative;
+  padding: 0.5rem 0;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent-blue);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--primary-color);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-button {
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: var(--accent-blue);
+  color: var(--primary-color);
+  box-shadow: 0 0 20px rgba(14, 165, 233, 0.5);
+}
+
+/* --- Hero Slider Section --- */
+.hero-section {
+  padding-top: 2rem;
+  padding-bottom: 2rem; /* Reduced padding */
+}
+
+.hero-slider-viewport {
+  width: 100%;
+  height: 400px;
+  position: relative;
+  overflow: hidden; /* This must be hidden! */
+}
+
+.slider-container {
+  display: flex;
+  width: 300%; /* 100% * 3 slides */
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.slider-slide {
+  width: 33.3333%; /* 100% / 3 slides */
+  height: 100%;
+  display: flex;
+  position: relative;
+}
+
+.slide-content {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  transform: translateY(-50%);
+  z-index: 3;
+  color: white;
+  width: 40%;
+  padding: 2rem;
+}
+
+.slide-content .tagline {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+.tagline-1 {
+  background-color: var(--accent-blue);
+}
+.tagline-2 {
+  background-color: var(--accent-pink);
+}
+.tagline-3 {
+  background-color: var(--accent-purple);
+}
+
+.slide-content h1 {
+  font-size: 2.75rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.slide-content p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.slide-button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.slide-button-1 {
+  background-color: var(--accent-blue);
+}
+.slide-button-2 {
+  background-color: var(--accent-pink);
+}
+.slide-button-3 {
+  background-color: var(--accent-purple);
+}
+.slide-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.slide-image-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 65%;
+  height: 100%;
+}
+
+.slide-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    var(--card-bg) 0%,
+    rgba(26, 26, 26, 0.3) 40%,
+    transparent 100%
+  );
+  z-index: 1;
+}
+
+.glow-overlay {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  opacity: 0.3;
+  mix-blend-mode: color-dodge;
+  z-index: 2;
+  animation: glow-pan 10s linear infinite alternate;
+}
+.glow-1 {
+  background: radial-gradient(circle, var(--accent-blue) 0%, transparent 40%);
+}
+.glow-2 {
+  background: radial-gradient(circle, var(--accent-pink) 0%, transparent 40%);
+}
+.glow-3 {
+  background: radial-gradient(circle, var(--accent-purple) 0%, transparent 40%);
+}
+
+@keyframes glow-pan {
+  from {
+    transform: translate(-10%, -10%);
+  }
+  to {
+    transform: translate(10%, 10%);
+  }
+}
+
+/* Slider Navigation */
+.slider-indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 4;
+}
+
+.slider-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.slider-dot.active {
+  background-color: var(--primary-color);
+  transform: scale(1.2);
+}
+
+.slider-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--glass-border);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.slider-nav:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.slider-nav.prev {
+  left: 20px;
+}
+.slider-nav.next {
+  right: 20px;
+}
+
+/* --- Section Styling --- */
+.section {
+  padding: 2rem 0;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.section-header a {
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.section-header a:hover {
+  color: var(--accent-blue);
+}
+
+/* --- Song List --- */
+.song-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.song-list-header {
+  display: grid;
+  grid-template-columns: 50px 3fr 2fr 50px;
+  gap: 1rem;
+  padding: 0 1.5rem;
+  color: var(--text-dark);
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.song-row {
+  display: grid;
+  grid-template-columns: 50px 3fr 2fr 50px;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.song-row:hover {
+  background: var(--glow-color);
+  --glass-border: rgba(255, 255, 255, 0.3);
+}
+
+.song-row-col-1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
+.song-row .play-icon {
+  display: none;
+  color: var(--primary-color);
+}
+.song-row:hover .track-number {
+  display: none;
+}
+.song-row:hover .play-icon {
+  display: block;
+}
+.song-row .play-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.song-row-col-2 {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.song-row-col-2 img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.song-title {
+  font-weight: 600;
+}
+.song-artist {
+  font-size: 0.9rem;
+  color: var(--text-dark);
+}
+
+.song-row-col-3 {
+  color: var(--text-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.song-row-col-4 {
+  color: var(--text-dark);
+  font-weight: 500;
+  text-align: right;
+}
+
+/* --- Artist Grid --- */
+.artist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.5rem;
+}
+
+.artist-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.artist-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.artist-card img {
+  width: 128px;
+  height: 128px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  border: 2px solid var(--glass-border);
+}
+
+.artist-card h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+.artist-card p {
+  color: var(--text-dark);
+  font-size: 0.9rem;
+}
+
+/* --- Footer --- */
+.main-footer {
+  padding: 3rem 0;
+  margin-top: 2rem;
+  border-top: 1px solid var(--glass-border);
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.footer-content p {
+  color: var(--text-dark);
+}
+
+.social-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.social-links a {
+  color: var(--text-dark);
+}
+
+.social-links a:hover {
+  color: var(--primary-color);
+}
+
+.social-links svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+/* --- Animation --- */
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.delay-100ms {
+  animation-delay: 0.1s;
+}
+.delay-200ms {
+  animation-delay: 0.2s;
+}
+.delay-300ms {
+  animation-delay: 0.3s;
+}
+.delay-400ms {
+  animation-delay: 0.4s;
+}
+.delay-500ms {
+  animation-delay: 0.5s;
+}
+.delay-600ms {
+  animation-delay: 0.6s;
+}
+.delay-700ms {
+  animation-delay: 0.7s;
+}
+.delay-800ms {
+  animation-delay: 0.8s;
+}
+.delay-900ms {
+  animation-delay: 0.9s;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 900px) {
+  .slide-content {
+    width: 50%;
+  }
+  .slide-image-container {
+    width: 50%;
+  }
+  .gradient-overlay {
+    background: linear-gradient(
+      to right,
+      var(--card-bg) 0%,
+      rgba(26, 26, 26, 0.3) 60%,
+      transparent 100%
+    );
+  }
+  .slide-content h1 {
+    font-size: 2rem;
+  }
+  .slide-content p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-nav {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .nav-links {
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero-slider-viewport {
+    height: 350px;
+  }
+
+  .slide-content {
+    left: 0;
+    width: 60%;
+    padding: 1.5rem;
+  }
+  .slide-image-container {
+    width: 40%;
+  }
+
+  .song-list-header {
+    display: none;
+  }
+  .song-row {
+    grid-template-columns: 50px 1fr 50px;
+  }
+  .song-row-col-3 {
+    display: none;
+  }
+  .song-row-col-4 {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero-slider-viewport {
+    height: 450px;
+  }
+  .slider-slide {
+    flex-direction: column;
+  }
+  .slide-content {
+    position: relative;
+    width: 100%;
+    transform: none;
+    top: auto;
+    left: auto;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .slide-image-container {
+    position: relative;
+    width: 100%;
+    height: 50%;
+  }
+  .gradient-overlay {
+    background: linear-gradient(
+      to top,
+      var(--card-bg) 0%,
+      rgba(26, 26, 26, 0.3) 60%,
+      transparent 100%
+    );
+  }
+  .slider-nav {
+    top: 75%; /* On top of image */
+  }
+
+  .section-header h2 {
+    font-size: 1.5rem;
+  }
+  .artist-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .artist-card {
+    padding: 1rem;
+  }
+  .artist-card img {
+    width: 100px;
+    height: 100px;
+  }
+}

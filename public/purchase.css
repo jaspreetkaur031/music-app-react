@@ -1,0 +1,540 @@
+/*
+=====
+This CSS file is from your original 'purchase.css'.
+I have fixed all the 'url("Images/...")' paths to 'url("/Images/...")'
+so they work with your React project's 'public' folder.
+=====
+*/
+
+/* --- Google Font --- */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+/* --- Root Variables --- */
+:root {
+  --primary-color: #ffffff;
+  --text-color: #e0e0e0;
+  --text-dark: #a0a0a0;
+  --bg-color: #0c0c0c;
+  --card-bg: rgba(26, 26, 26, 0.5);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: rgba(0, 0, 0, 0.25);
+  --glow-color: rgba(255, 255, 255, 0.05);
+
+  --font-sans: "Inter", sans-serif;
+
+  --accent-blue: #0ea5e9;
+  --accent-pink: #db2777;
+  --accent-purple: #c026d3;
+  --accent-red: #e11d48;
+  --accent-green: #16a34a;
+}
+
+/* --- Base Styles --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* --- Aurora Background Effect --- */
+.aurora-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.aurora-bg::before {
+  content: "";
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  z-index: -2;
+  background-image: conic-gradient(
+    from 90deg at 50% 50%,
+    rgba(14, 165, 233, 0.15) 0%,
+    rgba(219, 39, 119, 0.15) 19.79%,
+    rgba(192, 38, 211, 0.15) 39.06%,
+    rgba(225, 29, 72, 0.15) 59.9%,
+    rgba(22, 163, 74, 0.15) 80.21%,
+    rgba(14, 165, 233, 0.15) 100%
+  );
+  animation: rotateBackground 20s linear infinite;
+}
+
+.aurora-bg::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: var(--bg-color);
+  backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(100px);
+}
+
+@keyframes rotateBackground {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* --- Utility Classes --- */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--accent-blue);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* --- Glassmorphism Card Style --- */
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px 0 var(--glass-shadow);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* --- Glowing Border Effect --- */
+.glowing-border {
+  position: relative;
+}
+.glowing-border::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: conic-gradient(
+    from var(--angle),
+    transparent 20%,
+    var(--accent-blue),
+    var(--accent-pink),
+    transparent 80%
+  );
+  z-index: -1;
+  border-radius: 14px;
+  filter: blur(15px);
+  opacity: 0.6;
+  animation: glow-rotate 6s linear infinite;
+  --angle: 0deg;
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes glow-rotate {
+  to {
+    --angle: 360deg;
+  }
+}
+
+/* --- Header / Navigation --- */
+.main-header {
+  padding: 2rem 0;
+}
+
+.main-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  gap: 0.5rem;
+}
+
+.logo svg {
+  width: 28px;
+  height: 28px;
+  color: var(--accent-blue);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  font-weight: 500;
+  color: var(--text-dark);
+  position: relative;
+  padding: 0.5rem 0;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent-blue);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--primary-color);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-button {
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: var(--accent-blue);
+  color: var(--primary-color);
+  box-shadow: 0 0 20px rgba(14, 165, 233, 0.5);
+}
+
+/* --- Section Styling --- */
+.section {
+  padding: 4rem 0;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.section-header a {
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.section-header a:hover {
+  color: var(--accent-blue);
+}
+
+/* --- Premium Hero Section --- */
+.premium-hero-section {
+  text-align: center;
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+.premium-hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: -2px;
+  margin-bottom: 1rem;
+}
+
+.premium-hero-subtitle {
+  font-size: 1.125rem;
+  color: var(--text-dark);
+  max-width: 500px;
+  margin: 0 auto 3rem auto;
+}
+
+/* --- Pricing Grid --- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .pricing-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.pricing-card {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pricing-card.popular {
+  transform: scale(1.05);
+  border-color: var(--accent-purple);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.pricing-card.popular::before {
+  background: conic-gradient(
+    from var(--angle),
+    transparent 20%,
+    var(--accent-purple),
+    var(--accent-pink),
+    transparent 80%
+  );
+}
+
+.pricing-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.pricing-card .tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  background-color: var(--accent-blue);
+  color: var(--primary-color);
+}
+
+.pricing-card.popular .tag {
+  background-color: var(--accent-purple);
+}
+
+.pricing-card h3 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.pricing-card .price {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+}
+.pricing-card .price span {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.pricing-card .description {
+  color: var(--text-dark);
+  margin-bottom: 2rem;
+}
+
+.pricing-card .features {
+  list-style: none;
+  margin-bottom: 2rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pricing-card .features li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.pricing-card .features li::before {
+  content: "✔";
+  color: var(--accent-green);
+  font-weight: 700;
+}
+
+.pricing-card .cta-button {
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: auto; /* Pushes button to bottom */
+  width: 100%;
+}
+
+.pricing-card .cta-button:hover {
+  background-color: var(--accent-blue);
+  color: var(--primary-color);
+  box-shadow: 0 0 20px rgba(14, 165, 233, 0.5);
+}
+
+.pricing-card.popular .cta-button {
+  background-color: var(--accent-purple);
+  color: var(--primary-color);
+}
+.pricing-card.popular .cta-button:hover {
+  background-color: var(--accent-pink);
+  box-shadow: 0 0 20px rgba(192, 38, 211, 0.5);
+}
+
+/* --- Footer --- */
+.main-footer {
+  padding: 3rem 0;
+  margin-top: 4rem;
+  border-top: 1px solid var(--glass-border);
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.footer-content p {
+  color: var(--text-dark);
+}
+
+.social-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.social-links a {
+  color: var(--text-dark);
+}
+
+.social-links a:hover {
+  color: var(--primary-color);
+}
+
+.social-links svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+/* --- Animation --- */
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.delay-100ms {
+  animation-delay: 0.1s;
+}
+.delay-200ms {
+  animation-delay: 0.2s;
+}
+.delay-300ms {
+  animation-delay: 0.3s;
+}
+.delay-400ms {
+  animation-delay: 0.4s;
+}
+.delay-500ms {
+  animation-delay: 0.5s;
+}
+.delay-600ms {
+  animation-delay: 0.6s;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+  .main-nav {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .nav-links {
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .premium-hero-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .premium-hero-title {
+    font-size: 2rem;
+  }
+
+  .premium-hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .pricing-card {
+    padding: 1.5rem;
+  }
+
+  .pricing-card .price {
+    font-size: 2.5rem;
+  }
+}
