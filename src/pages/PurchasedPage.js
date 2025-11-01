@@ -1,9 +1,25 @@
-import React from 'react';
+// import React from 'react';
+// import React, { useEffect } from 'react';
 // import { Link } from 'react-router-dom';
 // import './purchase.css'; // Import page-specific CSS
 
+import React, { useEffect } from 'react';
+
 
 function PurchasedPage() {
+
+    useEffect(() => {
+    const link = document.createElement('link');
+    link.href = "/purchase.css"; // Path from the public folder
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+
+    // Cleanup function to remove the stylesheet
+    return () => {
+      document.head.removeChild(link);
+    };
+  }, []);
+
   return (
     <main className="container main-content">
       {/* Section 1: Premium Hero Section */}

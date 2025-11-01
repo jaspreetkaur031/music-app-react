@@ -174,21 +174,10 @@ function MusicPlayer() {
             onMouseDown={handleMouseDown}
             onTouchStart={handleTouchStart}
           >
-            {/* This div is the styled progress bar line */}
             <div 
               className="music_play_line" 
               style={{'--progress-percent': `${progressPercent}%`}}
             ></div>
-            
-            {/* This extra dot div was in your code but had no styles. 
-              The real dot is in your CSS (.music_play_line:after).
-              I have removed this extra div as it was not doing anything.
-            */}
-            {/* <div 
-              className="music_play_dot"
-              style={{left: `calc(${progressPercent}% - 3px)`}} 
-            ></div> 
-            */}
           </div>
           <div className="music_timeline">
             <p>{formatTime(currentTime)}</p>

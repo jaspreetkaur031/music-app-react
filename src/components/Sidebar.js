@@ -159,12 +159,12 @@ function Sidebar({ isSidebarHidden, toggleSidebar }) {
               <p className={isSidebarHidden ? 'hide_element' : ''}>Contact US</p>
             </a>
           </li>
-          <li className={isSidebarHidden ? 'menu_gap' : ''}>
-            <a href="/#"> {/* Keeping as <a> since it's not a Route */}
-              <span className="icon icon-history"></span>
+         {/* <li className={isSidebarHidden ? 'menu_gap' : ''}>
+            <NavLink to="/contact" className={({ isActive }) => isActive ? 'active_link' : ''}>
+              <span className="icon icon-Stations"></span>
               <p className={isSidebarHidden ? 'hide_element' : ''}>History</p>
-            </a>
-          </li>
+            </NavLink>
+          </li> */}
         </ul>
       </div>
       {/* 5. Use the toggleSidebar prop passed from Layout.js */}

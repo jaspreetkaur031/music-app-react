@@ -1,7 +1,24 @@
-import React from 'react';
-// import './home.css'; // Re-using home.css for layout
+// import React from 'react';
+// import React, { useEffect } from 'react';
+
+import React, { useEffect } from 'react';
+
 
 function ContactPage() {
+
+    useEffect(() => {
+    const link = document.createElement('link');
+    link.href = "/purchase.css"; // Path from the public folder
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+
+    // Cleanup function to remove the stylesheet
+    return () => {
+      document.head.removeChild(link);
+    };
+  }, []);
+
+
   return (
     <main className="container main-content">
       <section className="section animate-fadeInUp" style={{ paddingTop: '2rem' }}>
