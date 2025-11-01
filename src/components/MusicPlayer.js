@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
+import React, { useContext, useState, useEffect, useRef, useCallback } from 'react';
 import { MusicContext } from '../context/MusicContext';
 
 // Helper function to format time (e.g., 125 -> "2:05")
@@ -15,7 +15,7 @@ function MusicPlayer() {
     currentSongIndex,
     isPlaying,
     audioRef,
-    playSong, // Need this for the queue
+    playSong,
     togglePlayPause,
     nextSong,
     prevSong,
@@ -30,15 +30,13 @@ function MusicPlayer() {
   const [duration, setDuration] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   
-  // --- NEW: State for UI toggles ---
   const [isQueueOpen, setIsQueueOpen] = useState(false);
   const [isPlayerHidden, setIsPlayerHidden] = useState(false);
 
-  const progressBarRef = useRef(null); // Ref for the progress bar element
-
+  const progressBarRef = useRef(null);
   const currentSong = songs[currentSongIndex];
 
-  // Effect to update time and duration
+  // Effect to update time and duration from audio element
   useEffect(() => {
     const audio = audioRef.current;
     const handleTimeUpdate = () => {
@@ -51,18 +49,25 @@ function MusicPlayer() {
     };
     audio.addEventListener('loadedmetadata', handleLoadedMetadata);
     audio.addEventListener('timeupdate', handleTimeUpdate);
+    
+    // Set duration on initial load if audio is already ready
     if (audio.duration) {
       setDuration(audio.duration);
     }
+    
     return () => {
       audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
       audio.removeEventListener('timeupdate', handleTimeUpdate);
     };
-  }, [audioRef, isDragging]);
+  }, [audioRef, isDragging]); // Only depends on isDragging
 
-  // --- Drag-to-Seek Logic ---
-  const handleSeek = (e) => {
+  // --- START OF FIX ---
+  // All event handlers are wrapped in useCallback with their dependencies
+
+  const handleSeek = useCallback((e) => {
     if (!progressBarRef.current || isNaN(duration) || duration <= 0) return;
+    
+    // Use pageX for mouse and changedTouches[0].pageX for touch
     const clientX = e.pageX || (e.changedTouches && e.changedTouches[0].pageX);
     if (clientX === undefined) return;
     
@@ -73,39 +78,42 @@ function MusicPlayer() {
 
     seek(seekTime);
     setCurrentTime(seekTime);
-  };
+  }, [progressBarRef, duration, seek]); // Add duration and seek
 
-  const handleMouseDown = (e) => {
+  const handleMouseDown = useCallback((e) => {
     setIsDragging(true);
     handleSeek(e);
-  };
-  
-  const handleTouchStart = (e) => {
-    setIsDragging(true);
-    handleSeek(e.changedTouches[0]);
-  };
-  
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-  
-  const handleTouchEnd = () => {
-    setIsDragging(false);
-  };
+  }, [handleSeek]); // Add handleSeek
 
-  const handleMouseMove = (e) => {
+  const handleTouchStart = useCallback((e) => {
+    setIsDragging(true);
+    // Pass the touch event correctly
+    handleSeek(e.changedTouches[0]);
+  }, [handleSeek]); // Add handleSeek
+
+  const handleMouseUp = useCallback(() => {
+    setIsDragging(false);
+  }, []); // No dependencies
+
+  const handleTouchEnd = useCallback(() => {
+    setIsDragging(false);
+  }, []); // No dependencies
+
+  const handleMouseMove = useCallback((e) => {
     if (isDragging) {
       handleSeek(e);
     }
-  };
-  
-  const handleTouchMove = (e) => {
+  }, [isDragging, handleSeek]); // Add isDragging and handleSeek
+
+  const handleTouchMove = useCallback((e) => {
     if (isDragging) {
       e.preventDefault();
+      // Pass the touch event correctly
       handleSeek(e.changedTouches[0]);
     }
-  };
+  }, [isDragging, handleSeek]); // Add isDragging and handleSeek
 
+  // This effect now correctly lists its dependencies
   useEffect(() => {
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseup', handleMouseUp);
@@ -118,21 +126,18 @@ function MusicPlayer() {
       window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('touchend', handleTouchEnd);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDragging]); 
-
+  }, [handleMouseMove, handleMouseUp, handleTouchMove, handleTouchEnd]); // Add all handlers
+  
+  // --- END OF FIX ---
 
   const progressPercent = (currentTime / duration) * 100 || 0;
 
-  // --- NEW: Toggle function for hiding the player ---
   const togglePlayerHidden = () => {
     setIsPlayerHidden(!isPlayerHidden);
   };
 
   return (
-    // --- NEW: Dynamic class for hiding player ---
     <div className={`bottom_container ${isPlayerHidden ? 'show_bottom_box' : ''}`}>
-      {/* --- NEW: onClick for hiding player --- */}
       <span className="bottom_container_btn" onClick={togglePlayerHidden}>
         <i className={`ri-arrow-left-s-line ${isPlayerHidden ? 'icon_rotate' : ''}`}></i>
       </span>
@@ -169,14 +174,21 @@ function MusicPlayer() {
             onMouseDown={handleMouseDown}
             onTouchStart={handleTouchStart}
           >
+            {/* This div is the styled progress bar line */}
             <div 
               className="music_play_line" 
               style={{'--progress-percent': `${progressPercent}%`}}
             ></div>
-            <div 
+            
+            {/* This extra dot div was in your code but had no styles. 
+              The real dot is in your CSS (.music_play_line:after).
+              I have removed this extra div as it was not doing anything.
+            */}
+            {/* <div 
               className="music_play_dot"
               style={{left: `calc(${progressPercent}% - 3px)`}} 
-            ></div>
+            ></div> 
+            */}
           </div>
           <div className="music_timeline">
             <p>{formatTime(currentTime)}</p>
@@ -208,28 +220,23 @@ function MusicPlayer() {
         </div>
       </div>
 
-      {/* --- NEW: onClick for opening queue --- */}
       <div className="music_bottom_btn">
         <button onClick={() => setIsQueueOpen(true)}>
           <i className="ri-arrow-up-s-line"></i> Queue
         </button>
       </div>
 
-      {/* --- NEW: Dynamic class for showing queue --- */}
       <div className={`queue_dropdown_box ${isQueueOpen ? 'show_queue_box' : ''}`}>
-        {/* --- NEW: onClick for closing queue --- */}
         <div className="sidebar_btn queue_btn" onClick={() => setIsQueueOpen(false)}>
           <i className="ri-arrow-left-s-line"></i>
         </div>
         <h1>QUEUE</h1>
         
-        {/* --- NEW: Dynamic Queue List --- */}
         <div className="queue_wrapper">
           {songs.map((song, index) => (
             <div 
-              className="queue_col" 
+              className={`queue_col ${index === currentSongIndex ? 'active_song_list' : ''}`}
               key={index}
-              // Play song on click
               onClick={() => playSong(index)} 
             >
               <div className="queue_img">
@@ -253,4 +260,3 @@ function MusicPlayer() {
 }
 
 export default MusicPlayer;
-

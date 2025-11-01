@@ -52,7 +52,7 @@ function Layout() {
         If it's '/home', we render 'null' (nothing).
         For all other pages, we render the <MusicPlayer />.
       */}
-      {location.pathname === '/home' ? null : <MusicPlayer />}
+      {location.pathname === '/' ? null : <MusicPlayer />}
       
     </header>
   );
