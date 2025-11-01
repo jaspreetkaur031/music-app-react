@@ -6,81 +6,71 @@ export const MusicContext = createContext();
 export const MusicProvider = ({ children }) => {
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  
-  // --- NEW: State for mute and play mode ---
   const [isMuted, setIsMuted] = useState(false);
   const [playMode, setPlayMode] = useState('normal'); // 'normal', 'repeat', 'shuffle'
 
-  // Initialize audioRef with a new Audio object
-  // We use useRef to hold the audio object so it persists through renders
+  // --- ADD THIS STATE ---
+  // We need the context to hold the time and duration
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  // ------------------------
+
   const audioRef = useRef(new Audio(songs[currentSongIndex].src));
   
-  // Function to load and play a specific song by index
   const playSong = useCallback((index) => {
-    if (index < 0 || index >= songs.length) return; // Guard clause
+    if (index < 0 || index >= songs.length) return; 
 
     const song = songs[index];
-    audioRef.current.src = song.src; // Set the new song source
+    audioRef.current.src = song.src; 
     
-    // Attempt to play the audio
     const playPromise = audioRef.current.play();
     if (playPromise !== undefined) {
       playPromise.then(() => {
-        // Playback started successfully
         setCurrentSongIndex(index);
         setIsPlaying(true);
       }).catch(error => {
-        // Autoplay was prevented (common in browsers)
-        // We'll set the state, but playback might not start
         console.error("Audio playback error:", error);
         setCurrentSongIndex(index);
-        setIsPlaying(true); // We set this to true, but user might need to click play again
+        setIsPlaying(true); 
       });
     }
-  }, []); // Empty dependency array, this function is stable
+  }, []); 
 
-  // Function to toggle between play and pause
   const togglePlayPause = () => {
     if (isPlaying) {
       audioRef.current.pause();
     } else {
       audioRef.current.play();
     }
-    setIsPlaying(!isPlaying); // Invert the state
+    setIsPlaying(!isPlaying); 
   };
 
-  // --- NEW: Next and Previous Song Logic ---
   const nextSong = useCallback(() => {
     if (playMode === 'shuffle') {
-      // Play a random song, but not the same one twice
       let newIndex = currentSongIndex;
       while (newIndex === currentSongIndex) {
         newIndex = Math.floor(Math.random() * songs.length);
       }
       playSong(newIndex);
     } else {
-      // Normal or Repeat mode
       const newIndex = (currentSongIndex + 1) % songs.length;
       playSong(newIndex);
     }
   }, [currentSongIndex, playMode, songs.length, playSong]);
 
-  const prevSong = () => {
+  const prevSong = useCallback(() => { // --- ADDED useCallback ---
     if (playMode === 'shuffle') {
-      // Play a random song
       let newIndex = currentSongIndex;
       while (newIndex === currentSongIndex) {
         newIndex = Math.floor(Math.random() * songs.length);
       }
       playSong(newIndex);
     } else {
-      // Normal or Repeat mode
       const newIndex = (currentSongIndex - 1 + songs.length) % songs.length;
       playSong(newIndex);
     }
-  };
+  }, [currentSongIndex, playMode, songs.length, playSong]); // --- ADDED DEPENDENCIES ---
 
-  // --- NEW: Seek and Mute Logic ---
   const toggleMute = () => {
     audioRef.current.muted = !audioRef.current.muted;
     setIsMuted(audioRef.current.muted);
@@ -92,7 +82,6 @@ export const MusicProvider = ({ children }) => {
     }
   };
 
-  // --- NEW: Play Mode Logic ---
   const changePlayMode = () => {
     if (playMode === 'normal') {
       setPlayMode('repeat');
@@ -103,17 +92,39 @@ export const MusicProvider = ({ children }) => {
     }
   };
 
+  // --- ADD THIS EFFECT ---
+  // This effect will listen to the audio element and update our state
+  useEffect(() => {
+    const audio = audioRef.current;
+
+    const handleTimeUpdate = () => {
+      setCurrentTime(audio.currentTime);
+    };
+
+    const handleLoadedMetadata = () => {
+      setDuration(audio.duration);
+    };
+
+    // Add event listeners
+    audio.addEventListener('timeupdate', handleTimeUpdate);
+    audio.addEventListener('loadedmetadata', handleLoadedMetadata);
+
+    // Cleanup function to remove listeners
+    return () => {
+      audio.removeEventListener('timeupdate', handleTimeUpdate);
+      audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
+    };
+  }, []); // Empty array so this only runs once
+
   // --- Effect for handling song end ---
   useEffect(() => {
     const audio = audioRef.current;
 
     const handleSongEnd = () => {
       if (playMode === 'repeat') {
-        // Repeat the same song
         audio.currentTime = 0;
         audio.play();
       } else {
-        // Go to the next song (handles 'shuffle' and 'normal')
         nextSong();
       }
     };
@@ -123,7 +134,7 @@ export const MusicProvider = ({ children }) => {
     return () => {
       audio.removeEventListener('ended', handleSongEnd);
     };
-  }, [playMode, nextSong]); // Re-run this effect if playMode or nextSong changes
+  }, [playMode, nextSong]); 
 
   // The value provided to all consumer components
   const value = {
@@ -138,9 +149,11 @@ export const MusicProvider = ({ children }) => {
     isMuted,
     toggleMute,
     seek,
-    // --- NEW: Expose playMode and its changer ---
     playMode,
-    changePlayMode
+    changePlayMode,
+    // --- ADD THESE TWO LINES ---
+    currentTime,
+    duration
   };
 
   return (
