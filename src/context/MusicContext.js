@@ -149,4 +149,3 @@ export const MusicProvider = ({ children }) => {
     </MusicContext.Provider>
   );
 };
-

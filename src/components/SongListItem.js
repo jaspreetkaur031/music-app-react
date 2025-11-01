@@ -59,4 +59,3 @@ function SongListItem({ song, index }) {
 }
 
 export default SongListItem;
-

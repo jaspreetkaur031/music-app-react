@@ -221,11 +221,14 @@ img {
   padding-bottom: 8rem;
 }
 
+/* After (Corrected) */
+
 .nft-hero-title {
   font-size: 3.5rem;
   font-weight: 800;
   letter-spacing: -2px;
   margin-bottom: 1rem;
+  color: var(--primary-color); /* <-- ADD THIS LINE */
 }
 
 .nft-hero-subtitle {

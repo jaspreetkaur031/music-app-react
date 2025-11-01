@@ -49,7 +49,7 @@ function Layout() {
 
       {/* --- 3. THIS IS THE FIX ---
         We check the current 'location.pathname'.
-        If it's '/home', we render 'null' (nothing).
+        If it's '/', we render 'null' (nothing).
         For all other pages, we render the <MusicPlayer />.
       */}
       {location.pathname === '/' ? null : <MusicPlayer />}
