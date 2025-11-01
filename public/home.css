@@ -1,8 +1,9 @@
 /*
 =====
 This CSS file is from your original 'home.css'.
-I have fixed all the 'url("Images/...")' paths to 'url("/Images/...")'
-so they work with your React project's 'public' folder.
+I have added the '.artist-grid' styles from music.css.
+I have changed BOTH '.album-grid' and '.artist-grid'
+from a grid to a horizontal-scrolling flex container.
 =====
 */
 
@@ -36,65 +37,6 @@ so they work with your React project's 'public' folder.
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: var(--font-sans);
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  line-height: 1.6;
-}
-
-/* --- Aurora Background Effect --- */
-.aurora-bg {
-  position: relative;
-  overflow: hidden;
-}
-
-.aurora-bg::before {
-  content: "";
-  position: fixed;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  z-index: -2;
-  background-image: conic-gradient(
-    from 90deg at 50% 50%,
-    rgba(14, 165, 233, 0.15) 0%,
-    rgba(219, 39, 119, 0.15) 19.79%,
-    rgba(192, 38, 211, 0.15) 39.06%,
-    rgba(225, 29, 72, 0.15) 59.9%,
-    rgba(22, 163, 74, 0.15) 80.21%,
-    rgba(14, 165, 233, 0.15) 100%
-  );
-  animation: rotateBackground 20s linear infinite;
-}
-
-.aurora-bg::after {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background-color: var(--bg-color);
-  backdrop-filter: blur(100px);
-  -webkit-backdrop-filter: blur(100px);
-}
-
-@keyframes rotateBackground {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }
 
 /* --- Utility Classes --- */
@@ -321,7 +263,7 @@ img {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  /* transform: translate(-50%, -50%); <-- This is now handled by JS */
   transition: transform 0.5s ease, opacity 0.5s ease;
   animation: intro 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -414,17 +356,46 @@ img {
   text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
 }
 
-/* --- Album Grid --- */
+/*
+ =================================
+ === SLIDER FIX FOR ALBUM PAGE ===
+ =================================
+*/
 .album-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  display: flex;          /* Changed from grid */
+  overflow-x: auto;       /* Add horizontal scrolling */
+  overflow-y: hidden;     /* Hide vertical scrollbar */
+  padding: 20px 5px;      /* Add padding for scrollbar and glow */
+  margin: -20px -5px;     /* Counteract padding */
   gap: 2rem;
+  -webkit-overflow-scrolling: touch; /* Smooth scroll on mobile */
+  scrollbar-color: var(--theme-color) rgba(0,0,0,0.2);
+  scrollbar-width: thin;
 }
 
+.album-grid::-webkit-scrollbar {
+  height: 8px;
+}
+.album-grid::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.2);
+  border-radius: 4px;
+}
+.album-grid::-webkit-scrollbar-thumb {
+  background-color: var(--theme-color);
+  border-radius: 4px;
+}
+
+
 .album-card {
-  display: block;
+  flex: 0 0 250px; /* Make each card 250px wide, and don't let it shrink */
+  width: 250px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+/*
+ ===============================
+ === END OF SLIDER FIX =========
+ ===============================
+*/
 
 .album-card:hover {
   transform: translateY(-10px);
@@ -451,6 +422,77 @@ img {
 .album-info p {
   color: var(--text-dark);
 }
+
+/*
+ ==================================
+ === SLIDER FIX FOR ARTIST PAGE ===
+ ==================================
+ Added this whole block from music.css
+*/
+.artist-grid {
+  display: flex;          /* Changed from grid */
+  overflow-x: auto;       /* Add horizontal scrolling */
+  overflow-y: hidden;     /* Hide vertical scrollbar */
+  padding: 20px 5px;      /* Add padding for scrollbar and glow */
+  margin: -20px -5px;     /* Counteract padding */
+  gap: 1.5rem;
+  -webkit-overflow-scrolling: touch; /* Smooth scroll on mobile */
+  scrollbar-color: var(--theme-color) rgba(0,0,0,0.2);
+  scrollbar-width: thin;
+}
+
+.artist-grid::-webkit-scrollbar {
+  height: 8px;
+}
+.artist-grid::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.2);
+  border-radius: 4px;
+}
+.artist-grid::-webkit-scrollbar-thumb {
+  background-color: var(--theme-color);
+  border-radius: 4px;
+}
+
+.artist-card {
+  flex: 0 0 160px; /* Make each card 160px wide, and don't let it shrink */
+  width: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+/*
+ ===============================
+ === END OF SLIDER FIX =========
+ ===============================
+*/
+
+.artist-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.artist-card img {
+  width: 128px;
+  height: 128px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  border: 2px solid var(--glass-border);
+}
+
+.artist-card h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+.artist-card p {
+  color: var(--text-dark);
+  font-size: 0.9rem;
+}
+
 
 /* --- Footer --- */
 .main-footer {

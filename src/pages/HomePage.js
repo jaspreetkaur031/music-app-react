@@ -115,7 +115,7 @@ function HomePage() {
       <section className="section animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
         <div className="section-header">
           <h2>New Albums</h2>
-          <Link to="/">See All</Link>
+          <Link to="/discover">See All</Link>
         </div>
 
         <div className="album-grid">

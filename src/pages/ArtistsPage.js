@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'; // 1. Import useEffect
 import { Link } from 'react-router-dom';
-// import './home.css'; // This comment is correct, we are re-using home.css
+// import './home.css'; // This was incorrect
 
 function ArtistsPage() {
 
-  // 2. Add this useEffect hook to load the stylesheet
+  // 2. Add this useEffect hook to load the correct stylesheet
   useEffect(() => {
     const link = document.createElement('link');
-    link.href = "/home.css"; // This page also uses home.css
+    link.href = "/music.css"; // This page uses music.css
     link.rel = "stylesheet";
     document.head.appendChild(link);
 

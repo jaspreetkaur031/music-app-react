@@ -22,10 +22,10 @@ function App() {
           <Route path="/" element={<Layout />}>
             
             {/* The main page (index.html) */}
-            <Route index element={<DiscoverPage />} />
+            <Route index element={<HomePage />} />
             
             {/* All your other pages */}
-            <Route path="home" element={<HomePage />} />
+            <Route path="discover" element={<DiscoverPage />} />
             <Route path="artists" element={<ArtistsPage />} />
             <Route path="albums" element={<AlbumsPage />} />
             <Route path="music" element={<MusicPage />} />

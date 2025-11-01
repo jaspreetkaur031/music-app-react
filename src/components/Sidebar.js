@@ -101,7 +101,7 @@ function Sidebar({ isSidebarHidden, toggleSidebar }) {
   return (
     <aside className={isSidebarHidden ? 'sidebar_hide' : ''}>
       <div className={`logo ${isSidebarHidden ? 'hide_element' : ''}`}>
-        <Link to="/home">
+        <Link to="/">
           <img src="/Images/logo.png" alt="" />
           <img src="/Images/mini_logo.png" alt="" className="small_screen_logo" />
         </Link>
@@ -114,7 +114,7 @@ function Sidebar({ isSidebarHidden, toggleSidebar }) {
         <ul>
           {/* 4. Use NavLink for active styling */}
           <li className={isSidebarHidden ? 'menu_gap' : ''}>
-            <NavLink to="/" end className={({ isActive }) => isActive ? 'active_link' : ''}>
+            <NavLink to="/discover" end className={({ isActive }) => isActive ? 'active_link' : ''}>
               <span className="icon icon-discover"></span>
               <p className={isSidebarHidden ? 'hide_element' : ''}>Discover</p>
             </NavLink>
@@ -132,9 +132,9 @@ function Sidebar({ isSidebarHidden, toggleSidebar }) {
             </NavLink>
           </li>
           <li className={isSidebarHidden ? 'menu_gap' : ''}>
-            <NavLink to="/contact" className={({ isActive }) => isActive ? 'active_link' : ''}>
+            <NavLink to="/" className={({ isActive }) => isActive ? 'active_link' : ''}>
               <span className="icon icon-Stations"></span>
-              <p className={isSidebarHidden ? 'hide_element' : ''}>Contact US</p>
+              <p className={isSidebarHidden ? 'hide_element' : ''}>Home</p>
             </NavLink>
           </li>
           <li className={isSidebarHidden ? 'menu_gap' : ''}>
@@ -154,9 +154,9 @@ function Sidebar({ isSidebarHidden, toggleSidebar }) {
             </NavLink>
           </li>
           <li className={isSidebarHidden ? 'menu_gap' : ''}>
-            <a href="/#"> {/* Keeping as <a> since it's not a Route */}
+            <a href="/contact"> {/* Keeping as <a> since it's not a Route */}
               <span className="icon icon-favourites"></span>
-              <p className={isSidebarHidden ? 'hide_element' : ''}>Favourites</p>
+              <p className={isSidebarHidden ? 'hide_element' : ''}>Contact US</p>
             </a>
           </li>
           <li className={isSidebarHidden ? 'menu_gap' : ''}>

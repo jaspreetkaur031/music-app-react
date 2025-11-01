@@ -116,7 +116,7 @@ function MusicPage() {
   }, []); // Empty array ensures this runs only once
 
   return (
-    <main className="container main-content">
+    <main className="container main-content" style={{marginTop:'3rem'}}>
       {/* Section 1: Hero (NEW SLIDER LAYOUT) */}
       <section className="hero-section animate-fadeInUp">
         <div className="hero-slider-viewport glass-card glowing-border">
@@ -188,7 +188,7 @@ function MusicPage() {
       <section className="section">
         <div className="section-header animate-fadeInUp delay-200ms">
           <h2>Today's Hits</h2>
-          <Link to="/">See All</Link>
+          <Link to="/discover">See All</Link>
         </div>
 
         <div className="song-list-container">
@@ -240,15 +240,15 @@ function MusicPage() {
       </section>
       
       {/* Section 3: Popular Artists */}
-      <section className="section">
+      {/* <section className="section">
         <div className="section-header animate-fadeInUp delay-300ms">
           <h2>Popular Artists</h2>
           <Link to="/artists">See All</Link>
         </div>
         <div className="artist-grid">
           {/* ... (Artist cards) ... */}
-        </div>
-      </section>
+        {/* </div> */}
+    {/* //   </section>  */}
     </main>
   );
 }
