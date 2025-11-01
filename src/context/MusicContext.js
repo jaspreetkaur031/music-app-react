@@ -9,17 +9,15 @@ export const MusicProvider = ({ children }) => {
   const [isMuted, setIsMuted] = useState(false);
   const [playMode, setPlayMode] = useState('normal'); // 'normal', 'repeat', 'shuffle'
 
-  // --- ADD THIS STATE ---
-  // We need the context to hold the time and duration
+  // --- 1. ADD STATE FOR TIME AND DURATION ---
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  // ------------------------
+  // ------------------------------------------
 
   const audioRef = useRef(new Audio(songs[currentSongIndex].src));
   
   const playSong = useCallback((index) => {
     if (index < 0 || index >= songs.length) return; 
-
     const song = songs[index];
     audioRef.current.src = song.src; 
     
@@ -58,7 +56,7 @@ export const MusicProvider = ({ children }) => {
     }
   }, [currentSongIndex, playMode, songs.length, playSong]);
 
-  const prevSong = useCallback(() => { // --- ADDED useCallback ---
+  const prevSong = useCallback(() => {
     if (playMode === 'shuffle') {
       let newIndex = currentSongIndex;
       while (newIndex === currentSongIndex) {
@@ -69,7 +67,7 @@ export const MusicProvider = ({ children }) => {
       const newIndex = (currentSongIndex - 1 + songs.length) % songs.length;
       playSong(newIndex);
     }
-  }, [currentSongIndex, playMode, songs.length, playSong]); // --- ADDED DEPENDENCIES ---
+  }, [currentSongIndex, playMode, songs.length, playSong]);
 
   const toggleMute = () => {
     audioRef.current.muted = !audioRef.current.muted;
@@ -79,6 +77,7 @@ export const MusicProvider = ({ children }) => {
   const seek = (time) => {
     if (!isNaN(time) && isFinite(time)) {
       audioRef.current.currentTime = time;
+      setCurrentTime(time); // Also update state immediately
     }
   };
 
@@ -92,7 +91,7 @@ export const MusicProvider = ({ children }) => {
     }
   };
 
-  // --- ADD THIS EFFECT ---
+  // --- 2. ADD EFFECT FOR TIME LISTENERS ---
   // This effect will listen to the audio element and update our state
   useEffect(() => {
     const audio = audioRef.current;
@@ -100,7 +99,6 @@ export const MusicProvider = ({ children }) => {
     const handleTimeUpdate = () => {
       setCurrentTime(audio.currentTime);
     };
-
     const handleLoadedMetadata = () => {
       setDuration(audio.duration);
     };
@@ -115,11 +113,11 @@ export const MusicProvider = ({ children }) => {
       audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
     };
   }, []); // Empty array so this only runs once
+  // ----------------------------------------
 
   // --- Effect for handling song end ---
   useEffect(() => {
     const audio = audioRef.current;
-
     const handleSongEnd = () => {
       if (playMode === 'repeat') {
         audio.currentTime = 0;
@@ -128,9 +126,7 @@ export const MusicProvider = ({ children }) => {
         nextSong();
       }
     };
-
     audio.addEventListener('ended', handleSongEnd);
-
     return () => {
       audio.removeEventListener('ended', handleSongEnd);
     };
@@ -151,9 +147,10 @@ export const MusicProvider = ({ children }) => {
     seek,
     playMode,
     changePlayMode,
-    // --- ADD THESE TWO LINES ---
+    // --- 3. PROVIDE THE STATE ---
     currentTime,
     duration
+    // ----------------------------
   };
 
   return (

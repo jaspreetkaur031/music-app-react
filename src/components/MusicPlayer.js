@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useRef, useCallback } from 'react';
 import { MusicContext } from '../context/MusicContext';
 
-// Helper function to format time (e.g., 125 -> "2:05")
+// Helper function to format time (e.s., 125 -> "2:05")
 function formatTime(seconds) {
   if (isNaN(seconds) || seconds < 0) return "0:00";
   const min = Math.floor(seconds / 60);
@@ -46,51 +46,28 @@ function MusicPlayer() {
   // is GONE. The MusicContext now handles this.
 
   // --- 4. SEEK HANDLERS ---
-  // These are now correct and use the global duration
-  const handleSeek = useCallback((e) => {
+  const handleSeek = useCallback((clientX) => {
+    // This function now just takes the X coordinate
     if (!progressBarRef.current || isNaN(duration) || duration <= 0) return;
-    
-    // Use clientX, which is relative to the VIEWPORT,
-    // just like getBoundingClientRect().
-    const clientX = e.clientX; 
-    
-    if (clientX === undefined) return;
     
     const { left, width } = progressBarRef.current.getBoundingClientRect();
     const clickX = clientX - left;
     const seekPercentage = Math.max(0, Math.min(1, clickX / width));
     const seekTime = seekPercentage * duration;
 
-    seek(seekTime);
-    // We don't call setCurrentTime() here anymore.
-    // The context will update it naturally.
-  }, [progressBarRef, duration, seek]);
-
-  const handleTouchSeek = useCallback((e) => {
-    // Separate handler for touch to use changedTouches
-    if (!progressBarRef.current || isNaN(duration) || duration <= 0) return;
-
-    const clientX = e.changedTouches[0].clientX;
-    if (clientX === undefined) return;
-    
-    const { left, width } = progressBarRef.current.getBoundingClientRect();
-    const clickX = clientX - left;
-    const seekPercentage = Math.max(0, Math.min(1, clickX / width));
-    const seekTime = seekPercentage * duration;
-    
     seek(seekTime);
   }, [progressBarRef, duration, seek]);
 
 
   const handleMouseDown = useCallback((e) => {
     setIsDragging(true);
-    handleSeek(e);
+    handleSeek(e.clientX); // Use clientX
   }, [handleSeek]);
 
   const handleTouchStart = useCallback((e) => {
     setIsDragging(true);
-    handleTouchSeek(e);
-  }, [handleTouchSeek]);
+    handleSeek(e.changedTouches[0].clientX); // Use clientX
+  }, [handleSeek]);
 
   const handleMouseUp = useCallback(() => {
     setIsDragging(false);
@@ -102,16 +79,16 @@ function MusicPlayer() {
 
   const handleMouseMove = useCallback((e) => {
     if (isDragging) {
-      handleSeek(e);
+      handleSeek(e.clientX); // Use clientX
     }
   }, [isDragging, handleSeek]);
 
   const handleTouchMove = useCallback((e) => {
     if (isDragging) {
       e.preventDefault();
-      handleTouchSeek(e);
+      handleSeek(e.changedTouches[0].clientX); // Use clientX
     }
-  }, [isDragging, handleTouchSeek]);
+  }, [isDragging, handleSeek]);
 
   // Effect to add global listeners for drag-end
   useEffect(() => {
@@ -128,9 +105,7 @@ function MusicPlayer() {
     };
   }, [handleMouseMove, handleMouseUp, handleTouchMove, handleTouchEnd]);
   
-
-  // This will now be correct because currentTime and duration
-  // come from the single source of truth (the context).
+  // This will now be correct!
   const progressPercent = (currentTime / duration) * 100 || 0;
 
   const togglePlayerHidden = () => {
