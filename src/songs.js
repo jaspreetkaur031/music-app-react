@@ -55,34 +55,34 @@ export const songs = [
     src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3",
     img: "/Images/s3.jpg"
   },
-  {
-    name: "Ocean Drive",
-    artist: "Harry Jackson, Virginia Hassis",
-    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
-    img: "/Images/s4.jpg"
-  },
-  {
-    name: "Winter Breeze",
-    artist: "Harry Jackson, Virginia Hassis",
-    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3",
-    img: "/Images/s5.jpg"
-  },
-  {
-    name: "Forever Yours",
-    artist: "Harry Jackson, Virginia Hassis",
-    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3",
-    img: "/Images/s6.jpg"
-  },
-  {
-    name: "Mountain Echo",
-    artist: "Harry Jackson, Virginia Hassis",
-    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3",
-    img: "/Images/s1.jpg"
-  },
-  {
-    name: "Sunset Chill",
-    artist: "Harry Jackson, Virginia Hassis",
-    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3",
-    img: "/Images/s2.jpg"
-  },
+//   {
+//     name: "Ocean Drive",
+//     artist: "Harry Jackson, Virginia Hassis",
+//     src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
+//     img: "/Images/s4.jpg"
+//   },
+//   {
+//     name: "Winter Breeze",
+//     artist: "Harry Jackson, Virginia Hassis",
+//     src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3",
+//     img: "/Images/s5.jpg"
+//   },
+//   {
+//     name: "Forever Yours",
+//     artist: "Harry Jackson, Virginia Hassis",
+//     src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3",
+//     img: "/Images/s6.jpg"
+//   },
+//   {
+//     name: "Mountain Echo",
+//     artist: "Harry Jackson, Virginia Hassis",
+//     src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3",
+//     img: "/Images/s1.jpg"
+//   },
+//   {
+//     name: "Sunset Chill",
+//     artist: "Harry Jackson, Virginia Hassis",
+//     src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3",
+//     img: "/Images/s2.jpg"
+//   },
 ];

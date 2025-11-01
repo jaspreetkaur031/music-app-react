@@ -112,7 +112,7 @@ function HomePage() {
         <div className="background-image-layer" style={{backgroundImage: 'url(/Images/conimg2.jpg)'}}></div>
       </Link>
 
-      <section className="section animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
+      <section className="section animate-fadeInUp" style={{ animationDelay: '0.6s' , color: 'white'}}>
         <div className="section-header">
           <h2>New Albums</h2>
           <Link to="/discover">See All</Link>
