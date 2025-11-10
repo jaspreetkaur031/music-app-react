@@ -1,22 +1,17 @@
 import React, { useContext } from 'react';
-import { MusicContext } from '../context/MusicContext'; // Import our global context
+import { MusicContext } from '../context/MusicContext'; 
 
-// We receive 'song' and 'index' as props from DiscoverPage
 function SongListItem({ song, index }) {
-  // Get the 'playSong' function from the global context
   const { playSong } = useContext(MusicContext);
 
   const handlePlay = () => {
-    // When clicked, call playSong with this song's index
     playSong(index);
   };
 
-  // This is the JSX from your original HTML for a single song
   return (
     <div className="song_col" onClick={handlePlay}>
       <div className="song_info">
         <img src="/Images/play_songlist.svg" alt="Play" className="play_img" />
-        {/* Format the index to be two digits (e.g., 01, 02) */}
         <span>{String(index + 1).padStart(2, '0')}</span>
         <div className="song_box">
           <img src={song.img} alt={song.name} />
@@ -28,10 +23,8 @@ function SongListItem({ song, index }) {
       </div>
       <div className="song_icon_time">
         <i className="ri-heart-2-line"></i>
-        {/* HERE IS THE FIX! 
-          Changed from {/ ... /} to {/* ... *}
-        */}
-        <p>0.4:23</p> {/* TODO: Get real song duration */}
+      
+        <p>0.4:23</p> 
         <div className="song_option">
           <i className="ri-more-2-fill"></i>
           <div className="song_option_dropdown">

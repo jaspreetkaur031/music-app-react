@@ -1,6 +1,3 @@
-// import React from 'react';
-// import React, { useEffect } from 'react';
-
 import React, { useEffect } from 'react';
 
 
@@ -8,11 +5,10 @@ function ContactPage() {
 
     useEffect(() => {
     const link = document.createElement('link');
-    link.href = "/purchase.css"; // Path from the public folder
+    link.href = "/purchase.css"; 
     link.rel = "stylesheet";
     document.head.appendChild(link);
 
-    // Cleanup function to remove the stylesheet
     return () => {
       document.head.removeChild(link);
     };
@@ -49,7 +45,6 @@ function ContactPage() {
         </div>
       </section>
 
-      {/* Simple CSS-in-JS for the form elements */}
       <style>{`
         .contact-form {
           display: flex;

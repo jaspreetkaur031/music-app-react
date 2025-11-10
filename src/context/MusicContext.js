@@ -1,5 +1,5 @@
 import React, { createContext, useState, useRef, useEffect, useCallback } from 'react';
-import { songs } from '../songs'; // Import the song list
+import { songs } from '../songs'; 
 
 export const MusicContext = createContext();
 
@@ -7,9 +7,9 @@ export const MusicProvider = ({ children }) => {
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  const [playMode, setPlayMode] = useState('normal'); // 'normal', 'repeat', 'shuffle'
+  const [playMode, setPlayMode] = useState('normal');
 
-  // --- 1. ADD STATE FOR TIME AND DURATION ---
+
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   // ------------------------------------------
@@ -77,7 +77,7 @@ export const MusicProvider = ({ children }) => {
   const seek = (time) => {
     if (!isNaN(time) && isFinite(time)) {
       audioRef.current.currentTime = time;
-      setCurrentTime(time); // Also update state immediately
+      setCurrentTime(time);
     }
   };
 
@@ -91,8 +91,7 @@ export const MusicProvider = ({ children }) => {
     }
   };
 
-  // --- 2. ADD EFFECT FOR TIME LISTENERS ---
-  // This effect will listen to the audio element and update our state
+
   useEffect(() => {
     const audio = audioRef.current;
 
@@ -107,15 +106,13 @@ export const MusicProvider = ({ children }) => {
     audio.addEventListener('timeupdate', handleTimeUpdate);
     audio.addEventListener('loadedmetadata', handleLoadedMetadata);
 
-    // Cleanup function to remove listeners
     return () => {
       audio.removeEventListener('timeupdate', handleTimeUpdate);
       audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
     };
-  }, []); // Empty array so this only runs once
+  }, []); 
   // ----------------------------------------
 
-  // --- Effect for handling song end ---
   useEffect(() => {
     const audio = audioRef.current;
     const handleSongEnd = () => {
@@ -132,7 +129,6 @@ export const MusicProvider = ({ children }) => {
     };
   }, [playMode, nextSong]); 
 
-  // The value provided to all consumer components
   const value = {
     songs,
     currentSongIndex,
@@ -147,10 +143,10 @@ export const MusicProvider = ({ children }) => {
     seek,
     playMode,
     changePlayMode,
-    // --- 3. PROVIDE THE STATE ---
+  
     currentTime,
     duration
-    // ----------------------------
+  
   };
 
   return (

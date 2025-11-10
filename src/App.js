@@ -18,13 +18,11 @@ function App() {
     <MusicProvider>
       <BrowserRouter>
         <Routes>
-          {/* All pages render inside the <Layout /> component */}
+         
           <Route path="/" element={<Layout />}>
             
-            {/* The main page (index.html) */}
             <Route index element={<HomePage />} />
             
-            {/* All your other pages */}
             <Route path="discover" element={<DiscoverPage />} />
             <Route path="artists" element={<ArtistsPage />} />
             <Route path="albums" element={<AlbumsPage />} />

@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect, useRef, useCallback } from 'react';
 import { MusicContext } from '../context/MusicContext';
 
-// Helper function to format time (e.s., 125 -> "2:05")
 function formatTime(seconds) {
   if (isNaN(seconds) || seconds < 0) return "0:00";
   const min = Math.floor(seconds / 60);
@@ -24,16 +23,11 @@ function MusicPlayer() {
     seek,
     playMode,
     changePlayMode,
-    // --- 1. GET TIME AND DURATION FROM CONTEXT ---
     currentTime,
     duration
   } = useContext(MusicContext);
 
-  // --- 2. DELETE LOCAL TIME STATE ---
-  // const [currentTime, setCurrentTime] = useState(0); // <-- DELETED
-  // const [duration, setDuration] = useState(0);     // <-- DELETED
-  
-  // This is correct (UI state, local to this component)
+
   const [isDragging, setIsDragging] = useState(false);
   const [isQueueOpen, setIsQueueOpen] = useState(false);
   const [isPlayerHidden, setIsPlayerHidden] = useState(false);
@@ -41,13 +35,10 @@ function MusicPlayer() {
   const progressBarRef = useRef(null);
   const currentSong = songs[currentSongIndex];
 
-  // --- 3. DELETE THE BUGGY useEffect ---
-  // The useEffect that listened for 'timeupdate' and 'loadedmetadata'
-  // is GONE. The MusicContext now handles this.
+
 
   // --- 4. SEEK HANDLERS ---
   const handleSeek = useCallback((clientX) => {
-    // This function now just takes the X coordinate
     if (!progressBarRef.current || isNaN(duration) || duration <= 0) return;
     
     const { left, width } = progressBarRef.current.getBoundingClientRect();
@@ -66,7 +57,7 @@ function MusicPlayer() {
 
   const handleTouchStart = useCallback((e) => {
     setIsDragging(true);
-    handleSeek(e.changedTouches[0].clientX); // Use clientX
+    handleSeek(e.changedTouches[0].clientX); 
   }, [handleSeek]);
 
   const handleMouseUp = useCallback(() => {
@@ -79,18 +70,17 @@ function MusicPlayer() {
 
   const handleMouseMove = useCallback((e) => {
     if (isDragging) {
-      handleSeek(e.clientX); // Use clientX
+      handleSeek(e.clientX); 
     }
   }, [isDragging, handleSeek]);
 
   const handleTouchMove = useCallback((e) => {
     if (isDragging) {
       e.preventDefault();
-      handleSeek(e.changedTouches[0].clientX); // Use clientX
+      handleSeek(e.changedTouches[0].clientX); 
     }
   }, [isDragging, handleSeek]);
 
-  // Effect to add global listeners for drag-end
   useEffect(() => {
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseup', handleMouseUp);
@@ -105,7 +95,6 @@ function MusicPlayer() {
     };
   }, [handleMouseMove, handleMouseUp, handleTouchMove, handleTouchEnd]);
   
-  // This will now be correct!
   const progressPercent = (currentTime / duration) * 100 || 0;
 
   const togglePlayerHidden = () => {
@@ -156,7 +145,6 @@ function MusicPlayer() {
             ></div>
           </div>
           <div className="music_timeline">
-            {/* These will now be correct */}
             <p>{formatTime(currentTime)}</p>
             <p>{formatTime(duration)}</p>
           </div>
@@ -192,7 +180,6 @@ function MusicPlayer() {
         </button>
       </div>
 
-      {/* --- QUEUE DROPDOWN (No changes needed) --- */}
       <div className={`queue_dropdown_box ${isQueueOpen ? 'show_queue_box' : ''}`}>
         <div className="sidebar_btn queue_btn" onClick={() => setIsQueueOpen(false)}>
           <i className="ri-arrow-left-s-line"></i>

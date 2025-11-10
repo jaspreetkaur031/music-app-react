@@ -1,15 +1,6 @@
-/*
-=====
-This CSS file is from your original 'purchase.css'.
-I have fixed all the 'url("Images/...")' paths to 'url("/Images/...")'
-so they work with your React project's 'public' folder.
-=====
-*/
-
 /* --- Google Font --- */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
-/* --- Root Variables --- */
 :root {
   --primary-color: #ffffff;
   --text-color: #e0e0e0;
@@ -29,7 +20,6 @@ so they work with your React project's 'public' folder.
   --accent-green: #16a34a;
 }
 
-/* --- Base Styles --- */
 *,
 *::before,
 *::after {
@@ -49,7 +39,7 @@ body {
   line-height: 1.6;
 }
 
-/* --- Aurora Background Effect --- */
+
 .aurora-bg {
   position: relative;
   overflow: hidden;
@@ -97,7 +87,6 @@ body {
   }
 }
 
-/* --- Utility Classes --- */
 .container {
   width: 90%;
   max-width: 1200px;
@@ -121,7 +110,6 @@ img {
   display: block;
 }
 
-/* --- Glassmorphism Card Style --- */
 .glass-card {
   background: var(--card-bg);
   backdrop-filter: blur(10px);
@@ -133,7 +121,6 @@ img {
   position: relative;
 }
 
-/* --- Glowing Border Effect --- */
 .glowing-border {
   position: relative;
 }
@@ -171,7 +158,6 @@ img {
   }
 }
 
-/* --- Header / Navigation --- */
 .main-header {
   padding: 2rem 0;
 }
@@ -246,7 +232,6 @@ img {
   box-shadow: 0 0 20px rgba(14, 165, 233, 0.5);
 }
 
-/* --- Section Styling --- */
 .section {
   padding: 4rem 0;
 }
@@ -272,7 +257,6 @@ img {
   color: var(--accent-blue);
 }
 
-/* --- Premium Hero Section --- */
 .premium-hero-section {
   text-align: center;
   padding-top: 2rem;
@@ -293,7 +277,6 @@ img {
   margin: 0 auto 3rem auto;
 }
 
-/* --- Pricing Grid --- */
 .pricing-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -404,7 +387,7 @@ img {
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: auto; /* Pushes button to bottom */
+  margin-top: auto; 
   width: 100%;
 }
 

@@ -1,15 +1,7 @@
-/*
-=====
-This CSS file is from your original 'music.css'.
-I have fixed all the 'url("Images/...")' paths to 'url("/Images/...")'
-so they work with your React project's 'public' folder.
-=====
-*/
-
 /* --- Google Font --- */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
-/* --- Root Variables --- */
+
 :root {
   --primary-color: #ffffff;
   --text-color: #e0e0e0;
@@ -29,7 +21,6 @@ so they work with your React project's 'public' folder.
   --accent-green: #16a34a;
 }
 
-/* --- Base Styles --- */
 *,
 *::before,
 *::after {
@@ -49,7 +40,7 @@ body {
   line-height: 1.6;
 }
 
-/* --- Aurora Background Effect --- */
+
 .aurora-bg {
   position: relative;
   overflow: hidden;
@@ -97,7 +88,6 @@ body {
   }
 }
 
-/* --- Utility Classes --- */
 .container {
   width: 90%;
   max-width: 1200px;
@@ -121,7 +111,6 @@ img {
   display: block;
 }
 
-/* --- Glassmorphism Card Style --- */
 .glass-card {
   background: var(--card-bg);
   backdrop-filter: blur(10px);
@@ -133,7 +122,6 @@ img {
   position: relative;
 }
 
-/* --- Glowing Border Effect --- */
 .glowing-border {
   position: relative;
 }
@@ -152,7 +140,7 @@ img {
     transparent 80%
   );
   z-index: -1;
-  border-radius: 18px; /* Slightly larger for card */
+  border-radius: 18px; 
   filter: blur(15px);
   opacity: 0.6;
   animation: glow-rotate 6s linear infinite;
@@ -171,7 +159,6 @@ img {
   }
 }
 
-/* --- Header / Navigation --- */
 .main-header {
   padding: 2rem 0;
 }
@@ -246,28 +233,27 @@ img {
   box-shadow: 0 0 20px rgba(14, 165, 233, 0.5);
 }
 
-/* --- Hero Slider Section --- */
 .hero-section {
   padding-top: 2rem;
-  padding-bottom: 2rem; /* Reduced padding */
+  padding-bottom: 2rem; 
 }
 
 .hero-slider-viewport {
   width: 100%;
   height: 400px;
   position: relative;
-  overflow: hidden; /* This must be hidden! */
+  overflow: hidden; 
 }
 
 .slider-container {
   display: flex;
-  width: 300%; /* 100% * 3 slides */
+  width: 300%; 
   height: 100%;
   transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
 .slider-slide {
-  width: 33.3333%; /* 100% / 3 slides */
+  width: 33.3333%; 
   height: 100%;
   display: flex;
   position: relative;
@@ -449,7 +435,6 @@ img {
   right: 20px;
 }
 
-/* --- Section Styling --- */
 .section {
   padding: 2rem 0;
 }
@@ -786,7 +771,7 @@ img {
     );
   }
   .slider-nav {
-    top: 75%; /* On top of image */
+    top: 75%; 
   }
 
   .section-header h2 {

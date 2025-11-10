@@ -1,25 +1,21 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-// import './home.css'; // This is correct, we are loading it dynamically
 
 function HomePage() {
 
-  // --- HOOK 1: Load and unload the CSS file ---
   useEffect(() => {
     const link = document.createElement('link');
-    link.href = "/home.css"; // Path from the public folder
+    link.href = "/home.css"; 
     link.rel = "stylesheet";
     document.head.appendChild(link);
 
-    // Cleanup function to remove the stylesheet when component unmounts
     return () => {
       document.head.removeChild(link);
     };
-  }, []); // Empty array means this runs only on mount and unmount
+  }, []); 
 
-  // --- HOOK 2: 3D Rotation Logic ---
   useEffect(() => {
-    // 3D Rotation Logic from your Home.html
+    // 3D Rotation 
     const rotator = document.getElementById('circle-rotator');
     if (!rotator) return; // Exit if rotator not found
 
@@ -34,29 +30,23 @@ function HomePage() {
     cards.forEach((card, index) => {
       const angle = angleIncrement * index;
       
-      // We must add 'translate(-50%, -50%)' here to keep the images centered.
+      // 'translate(-50%, -50%)' to keep the images centered.
       card.style.transform = `translate(-50%, -50%) rotateY(${angle}deg) translateZ(${zDistance}px)`;
       
       card.style.animationDelay = `${index * 0.5}s`;
     });
     
-  }, []); // The empty array [] means this runs once on mount
+  }, []);
 
   return (
-    // Note: The <header> and <footer> are in Layout.js,
-    // so we only copy the <main> content.
+   
     <main className="container main-content">
 
-      {/* Section 1: NEW NFT Hero Section - Now with 3D Rotation! */}
+     
       <section className="section nft-hero-section animate-fadeInUp delay-200ms" style={{ marginBottom: 0 }}>
         <h1 className="nft-hero-title">UNIQUE COLLECTION OF MUSIC</h1>
-        <p className="nft-hero-subtitle">The largest collection of nmusic among all providers</p>
+        <p className="nft-hero-subtitle">The largest collection of music among all providers</p>
         
-        {/*
-          --- GAP FIX 1 ---
-          Increased 'marginTop' to '8rem' (or '128px') to add more space
-          between the title and the rotating images.
-        */}
         <div id="circle-container" className="nft-hero-cards" style={{ marginTop: '8rem', marginBottom:'10rem' }} >
           <div id="circle-rotator">
             
@@ -93,13 +83,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/*
-        --- GAP FIX 2 ---
-        REMOVED the 'style={{marginTop: '20rem'}}' from this Link.
-        This lets the 'home.css' file (which has 'margin-top: -4rem') 
-        pull the card up and overlap the images, closing the large gap.
-      */}
-      <Link to="/" className="full-screen-card">
+      <Link to="/discover" className="full-screen-card">
         <div className="overlay"></div>
         <div className="card-content">
           <h1>

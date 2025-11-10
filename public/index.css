@@ -14,8 +14,6 @@ body{
     background-color: #0b1828;
     background-image: linear-gradient(134deg, rgb(12 26 42) 0%, rgb(10 23 38) 100%);
     
-    /* --- THIS IS THE SCROLLING FIX --- */
-    /* This MUST be hidden to force scrolling inside .hero_container */
     overflow: hidden;
 }
 
@@ -244,9 +242,6 @@ aside{
     padding: 1% 3%;
     display: flex;
     flex-direction: column;
-    /* This is the container that scrolls.
-      The background image is now applied *dynamically* by DiscoverPage.js
-    */
     height: 100vh;
     overflow-y: auto;
     padding-bottom: 120px; 
@@ -454,7 +449,6 @@ aside{
 }
 .songs_wrapper{
     width: 100%;
-    /* height: 600px; <-- REMOVED this fixed height */
     overflow: scroll;
     display: flex;
     flex-direction: column;
@@ -1070,9 +1064,6 @@ aside{
 
 
 
-/*********************** Artist page section start ****************************/
-
-
 
 .artists_menu .icon-discover{
     background-position: 0 0px;
@@ -1135,7 +1126,6 @@ aside{
     width: 100%;
     height: 100%;
     transition: var(--transition);
-    /* border: 2px solid white; */
 }
 .artist_card_box:after{
     content: '';
@@ -1198,17 +1188,6 @@ aside{
 
 
 
-
-
-
-
-
-
-
-
-
-/****************************** Artist page section end ************************/
-/****************************** Albums page section Start ************************/
 .albums_menu.icon-discover{
     background-position: -354 0px !important;
 }
@@ -1216,7 +1195,6 @@ aside{
     background-position: -16px -37px !important;
 }
 
-/****************************** Albums page section end ************************/
 
 
 
@@ -1262,8 +1240,6 @@ aside{
     }
 }
 
-
-/* mQ section */
 
 @media (max-width: 1400px){
     aside{

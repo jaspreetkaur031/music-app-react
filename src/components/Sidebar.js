@@ -1,10 +1,10 @@
-import React from 'react'; // 1. Removed unused useState
+import React from 'react'; 
 import { Link, NavLink } from 'react-router-dom';
 
-// 2. Accept the props from Layout.js
+// Accept the props from Layout.js
 function Sidebar({ isSidebarHidden, toggleSidebar }) {
 
-  // 3. Use the props (isSidebarHidden) to conditionally apply classes
+  // Use the props to conditionally apply classes
   return (
     <aside className={isSidebarHidden ? 'sidebar_hide' : ''}>
       <div className={`logo ${isSidebarHidden ? 'hide_element' : ''}`}>
@@ -19,7 +19,7 @@ function Sidebar({ isSidebarHidden, toggleSidebar }) {
       <div className="music_menu">
         <h2 className={isSidebarHidden ? 'hide_element' : ''}>Browse music</h2>
         <ul>
-          {/* 4. Use NavLink for active styling */}
+          {/*  NavLink */}
           <li className={isSidebarHidden ? 'menu_gap' : ''}>
             <NavLink to="/discover" end className={({ isActive }) => isActive ? 'active_link' : ''}>
               <span className="icon icon-discover"></span>
@@ -61,17 +61,12 @@ function Sidebar({ isSidebarHidden, toggleSidebar }) {
             </NavLink>
           </li>
           <li className={isSidebarHidden ? 'menu_gap' : ''}>
-            <a href="/contact"> {/* Keeping as <a> since it's not a Route */}
+            <a href="/contact"> 
               <span className="icon icon-favourites"></span>
               <p className={isSidebarHidden ? 'hide_element' : ''}>Contact US</p>
             </a>
           </li>
-         {/* <li className={isSidebarHidden ? 'menu_gap' : ''}>
-            <NavLink to="/contact" className={({ isActive }) => isActive ? 'active_link' : ''}>
-              <span className="icon icon-Stations"></span>
-              <p className={isSidebarHidden ? 'hide_element' : ''}>History</p>
-            </NavLink>
-          </li> */}
+        
         </ul>
       </div>
       {/* 5. Use the toggleSidebar prop passed from Layout.js */}

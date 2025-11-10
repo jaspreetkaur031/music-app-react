@@ -1,11 +1,9 @@
-// This data is moved from your original script.js
-// We export it so other files can import it.
 export const songs = [
   {
     name: "Walking Promises",
     artist: "Harry Jackson, Virginia Hassis",
     src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-    img: "/Images/s1.jpg" // <-- Path updated to work in public folder
+    img: "/Images/s1.jpg" 
   },
   {
     name: "Desired Games",

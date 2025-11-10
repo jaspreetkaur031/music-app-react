@@ -1,21 +1,18 @@
-import React, { useEffect } from 'react'; // 1. Import useEffect
+import React, { useEffect } from 'react'; 
 import { Link } from 'react-router-dom';
-// import './home.css'; // This was incorrect
 
 function ArtistsPage() {
 
-  // 2. Add this useEffect hook to load the correct stylesheet
   useEffect(() => {
     const link = document.createElement('link');
-    link.href = "/music.css"; // This page uses music.css
+    link.href = "/music.css"; 
     link.rel = "stylesheet";
     document.head.appendChild(link);
 
-    // 3. Cleanup function to remove the stylesheet on unmount
     return () => {
       document.head.removeChild(link);
     };
-  }, []); // The empty array ensures this runs only once
+  }, []); 
 
   return (
     <main className="container main-content">

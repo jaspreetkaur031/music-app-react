@@ -1,28 +1,25 @@
 import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-// import './music.css'; // This is commented out, which is correct
 import { MusicContext } from '../context/MusicContext';
 
 function MusicPage() {
   const { playSong } = useContext(MusicContext);
 
-  // --- HOOK 1: Load and unload the CSS file ---
-  // (This was the missing part)
+  //HOOK 1: Load and unload the CSS file
   useEffect(() => {
     const link = document.createElement('link');
-    link.href = "/music.css"; // Path from the public folder
+    link.href = "/music.css"; 
     link.rel = "stylesheet";
     document.head.appendChild(link);
 
-    // Cleanup function to remove the stylesheet
     return () => {
       document.head.removeChild(link);
     };
-  }, []); // Empty array means this runs only on mount and unmount
-  // ---------------------------------
+  }, []); 
 
-  // --- HOOK 2: Slider Logic ---
-  // (This is your code, it is correct)
+
+  // HOOK 2: Slider Logic
+
   useEffect(() => {
     const container = document.querySelector('.slider-container');
     const dots = document.querySelectorAll('.slider-dot');
@@ -30,7 +27,7 @@ function MusicPage() {
     const nextBtn = document.querySelector('.slider-nav.next');
     
     if (!container || dots.length === 0 || !prevBtn || !nextBtn) {
-      return; // Exit if elements aren't found
+      return; 
     }
 
     const numSlides = dots.length;
@@ -56,7 +53,7 @@ function MusicPage() {
 
     function startAutoPlay() {
         clearInterval(autoPlayInterval);
-        autoPlayInterval = setInterval(nextSlide, 5000); // 5 seconds
+        autoPlayInterval = setInterval(nextSlide, 3000); // 3 seconds
     }
 
     function stopAutoPlay() {
@@ -68,7 +65,7 @@ function MusicPage() {
         startAutoPlay();
     }
 
-    // --- Event Listeners ---
+ 
     const dotListeners = [];
     dots.forEach((dot, index) => {
       const listener = () => {
@@ -83,13 +80,13 @@ function MusicPage() {
       nextSlide();
       resetAutoPlay();
     };
-    prevBtn.addEventListener('click', nextListener); // Fixed: Was nextBtn
+    prevBtn.addEventListener('click', nextListener); 
 
     const prevListener = () => {
       prevSlide();
       resetAutoPlay();
     };
-    nextBtn.addEventListener('click', prevListener); // Fixed: Was prevBtn
+    nextBtn.addEventListener('click', prevListener); 
 
     const viewport = document.querySelector('.hero-slider-viewport');
     if (viewport) {
@@ -100,7 +97,6 @@ function MusicPage() {
     goToSlide(0);
     startAutoPlay();
 
-    // Cleanup function to remove all listeners
     return () => {
       clearInterval(autoPlayInterval);
       dotListeners.forEach(({ dot, listener }) => {
@@ -113,7 +109,7 @@ function MusicPage() {
         viewport.removeEventListener('mouseleave', startAutoPlay);
       }
     };
-  }, []); // Empty array ensures this runs only once
+  }, []); 
 
   return (
     <main className="container main-content" style={{marginTop:'3rem'}}>
@@ -239,16 +235,6 @@ function MusicPage() {
         </div>
       </section>
       
-      {/* Section 3: Popular Artists */}
-      {/* <section className="section">
-        <div className="section-header animate-fadeInUp delay-300ms">
-          <h2>Popular Artists</h2>
-          <Link to="/artists">See All</Link>
-        </div>
-        <div className="artist-grid">
-          {/* ... (Artist cards) ... */}
-        {/* </div> */}
-    {/* //   </section>  */}
     </main>
   );
 }
