@@ -52,7 +52,7 @@ function MusicPlayer() {
 
   const handleMouseDown = useCallback((e) => {
     setIsDragging(true);
-    handleSeek(e.clientX); // Use clientX
+    handleSeek(e.clientX); 
   }, [handleSeek]);
 
   const handleTouchStart = useCallback((e) => {

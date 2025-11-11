@@ -52,14 +52,14 @@ function DiscoverPage({ toggleSidebar }) {
         </div>
         <div className="user_info">
           <div className="user_img">
-            <img src="/Images/proflile.jpg" alt="" />
+            <img src="/Images/album-8.jpg" alt="" />
           </div>
 
           <div 
             className="user_login_wrapper"
             onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
           >
-            <h2>Hello, David <i className="ri-arrow-down-s-fill"></i></h2>
+            <h2>Hello, Jaspreeet<i className="ri-arrow-down-s-fill"></i></h2>
             <ul 
               className={`user_wrapper_dropdown ${isUserDropdownOpen ? 'show_user_dropdown' : ''}`}
             >

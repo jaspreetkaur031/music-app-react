@@ -771,7 +771,7 @@ aside{
     background: url(/Images/icon.svg) !important;
     width: 30px;
     height: 30px;
-    background-position: -840px 7px !important;
+    /* background-position: -840px 7px !important; */
     background-repeat: no-repeat !important;
     display: inline-block;
     background-color: transparent;
@@ -779,6 +779,18 @@ aside{
     transition: var(--transition);
 
 }
+
+
+.music_play_option .play_prev {
+  background-position: -840px 7px !important; 
+}
+
+
+.music_play_option .play_next {
+  background-position: -953px 7px !important;
+}
+
+
 .music_play_option .play_pause{
     background-position: -875px 7px !important;
 }
@@ -798,13 +810,23 @@ aside{
     height: 50px !important;
     background-image: var(--prime-gradient2) !important;
 }
-.music_play_option button:active .play_pause,
-.music_play_option button:focus .play_pause{
-    background-position: -877px -29px !important;
+
+
+.music_play_option button:active .play_pause {
+  background-position: -877px -29px !important;
 }
+
+
+.play_button.playing .play_pause {
+  background-position: -877px -29px !important;
+}
+
+
 .music_play_option .play_next{
     background-position: -953 7px !important;
 }
+
+
 .music_play_box{
     width: 70%;
     display: flex;

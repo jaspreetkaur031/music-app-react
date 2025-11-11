@@ -345,6 +345,7 @@ SLIDER FOR ALBUM PAGE ===
 
 */
 .album-grid {
+  display: flex;
   overflow-x: auto;       
   overflow-y: hidden;     
   padding: 20px 5px;      

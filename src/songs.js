@@ -2,19 +2,19 @@ export const songs = [
   {
     name: "Walking Promises",
     artist: "Harry Jackson, Virginia Hassis",
-    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
     img: "/Images/s1.jpg" 
   },
   {
     name: "Desired Games",
     artist: "Harry Jackson, Virginia Hassis",
-    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+    src: "/audio/bensound-rightnow.mp3",
     img: "/Images/s2.jpg"
   },
   {
     name: "Don't Let Me Down",
     artist: "Harry Jackson, Virginia Hassis",
-    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+    src: "/audio/bensound-rebelsofourownkind.mp3",
     img: "/Images/s3.jpg"
   },
   {
@@ -26,25 +26,25 @@ export const songs = [
   {
     name: "Until I Met You",
     artist: "Harry Jackson, Virginia Hassis",
-    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
+    src: "/audio/bensound-ngl.mp3",
     img: "/Images/s5.jpg"
   },
   {
     name: "Desires Pending",
     artist: "Harry Jackson, Virginia Hassis",
-    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
+    src: "/audio/bensound-rightnow.mp3",
     img: "/Images/s6.jpg"
   },
   {
     name: "Lonely Nights",
     artist: "Harry Jackson, Virginia Hassis",
-    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3",
+    src: "/audio/bensound-patience.mp3",
     img: "/Images/s1.jpg"
   },
   {
     name: "City Lights",
     artist: "Harry Jackson, Virginia Hassis",
-    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3",
+    src: "public/audio/bensound-curiouschild.mp3",
     img: "/Images/s2.jpg"
   },
   {
