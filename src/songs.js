@@ -44,7 +44,7 @@ export const songs = [
   {
     name: "City Lights",
     artist: "Harry Jackson, Virginia Hassis",
-    src: "public/audio/bensound-curiouschild.mp3",
+    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3",
     img: "/Images/s2.jpg"
   },
   {
